@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fuzzy Lab - Sistema Interativo de Lógica Nebulosa</title>
+  <meta name="description" content="Laboratório interativo de Lógica Fuzzy aplicando inferência de Mamdani e Centróide em Semáforo Inteligente e Detector de Burnout.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+  <!-- Cabeçalho Principal -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="brand-wrapper">
+        <div class="brand-icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2a4.5 4.5 0 0 0-4.5 4.5c0 .76.19 1.48.52 2.11A5 5 0 0 0 3 13.5a5 5 0 0 0 4 4.9v.6a3 3 0 0 0 3 3h4a3 3 0 0 0 3-3v-.6a5 5 0 0 0 4-4.9 5 5 0 0 0-5.02-4.89c.33-.63.52-1.35.52-2.11A4.5 4.5 0 0 0 12 2z"/>
+          </svg>
+        </div>
+        <div>
+          <h1 class="brand-title">Fuzzy Lab</h1>
+          <span class="brand-subtitle">Simulador Interativo de Lógica Nebulosa</span>
+        </div>
+      </div>
+      <nav class="nav-tabs" aria-label="Navegação dos Módulos">
+        <button class="tab-button active" id="tab-traffic" data-target="view-traffic" type="button">
+          <span class="tab-icon">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="6" y="2" width="12" height="20" rx="4"/>
+              <circle cx="12" cy="7" r="1.5" fill="currentColor"/>
+              <circle cx="12" cy="12" r="1.5" fill="currentColor"/>
+              <circle cx="12" cy="17" r="1.5" fill="currentColor"/>
+            </svg>
+          </span>
+          Semáforo Inteligente
+        </button>
+        <button class="tab-button" id="tab-burnout" data-target="view-burnout" type="button">
+          <span class="tab-icon">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+            </svg>
+          </span>
+          Risco de Burnout
+        </button>
+        <button class="tab-button" id="tab-explain" data-target="view-explain" type="button">
+          <span class="tab-icon">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/>
+              <path d="M12 9v4"/>
+              <path d="M12 17h.01"/>
+            </svg>
+          </span>
+          Como Funciona o Motor
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Conteúdo Principal -->
+  <main class="app-main">
+    <!-- MÓDULO 1: SEMÁFORO INTELIGENTE -->
+    <section class="module-view active" id="view-traffic" aria-labelledby="title-traffic">
+      <header class="module-header">
+        <span class="module-tag tag-control">Controle & Automação</span>
+        <h2 class="module-title" id="title-traffic">Semáforo Inteligente com Tempo Dinâmico</h2>
+        <p class="module-desc">
+          Diferente dos semáforos comuns com tempo fixo, o sistema Fuzzy analisa continuamente a densidade das vias para calcular o tempo ideal de abertura do sinal verde.
+        </p>
+      </header>
+
+      <div class="module-grid">
+        <!-- Controles de Entrada -->
+        <article class="panel-card">
+          <h3 class="panel-title">
+            <svg class="panel-title-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9C2.1 11.2 2 11.6 2 12v4c0 .6.4 1 1 1h2"/>
+              <circle cx="7" cy="17" r="2"/>
+              <circle cx="17" cy="17" r="2"/>
+            </svg>
+            Fluxo das Vias (Entradas)
+          </h3>
+          
+          <div class="control-group">
+            <div class="control-header">
+              <label for="traffic-main-input" class="control-label">Fila na Via Principal</label>
+              <span class="control-value-badge" id="traffic-main-val">25 carros</span>
+            </div>
+            <input type="range" id="traffic-main-input" class="slider-input" min="0" max="50" value="25">
+            <div class="slider-ticks">
+              <span>0 (Vazia)</span>
+              <span>25 (Média)</span>
+              <span>50 (Congestionada)</span>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <div class="control-header">
+              <label for="traffic-sec-input" class="control-label">Fila na Via Secundária</label>
+              <span class="control-value-badge" id="traffic-sec-val">10 carros</span>
+            </div>
+            <input type="range" id="traffic-sec-input" class="slider-input" min="0" max="50" value="10">
+            <div class="slider-ticks">
+              <span>0 (Vazia)</span>
+              <span>25 (Média)</span>
+              <span>50 (Congestionada)</span>
+            </div>
+          </div>
+
+          <div class="comparison-grid">
+            <div class="metric-pill">
+              <div class="metric-num" id="metric-fixed-time">30s</div>
+              <div class="metric-sub">Semáforo Fixo Padrão</div>
+            </div>
+            <div class="metric-pill">
+              <div class="metric-num" id="metric-diff-percent">+50%</div>
+              <div class="metric-sub">Eficiência de Vazão</div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Saída Visual & Semáforo -->
+        <article class="panel-card traffic-display-card">
+          <h3 class="panel-title">
+            <svg class="panel-title-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/>
+              <polyline points="12 6 12 12 16 14"/>
+            </svg>
+            Decisão do Motor Fuzzy (Saída)
+          </h3>
+
+          <div class="traffic-assembly" aria-label="Semáforo em funcionamento">
+            <div class="traffic-housing">
+              <div class="light-slot">
+                <div class="light-visor"></div>
+                <div class="traffic-light red" id="light-red"></div>
+              </div>
+              <div class="light-slot">
+                <div class="light-visor"></div>
+                <div class="traffic-light yellow" id="light-yellow"></div>
+              </div>
+              <div class="light-slot">
+                <div class="light-visor"></div>
+                <div class="traffic-light green active" id="light-green"></div>
+              </div>
+            </div>
+            <div class="traffic-pole"></div>
+            <div class="traffic-base"></div>
+          </div>
+
+          <div class="countdown-box">
+            <div class="countdown-val" id="traffic-green-time">45s</div>
+            <div class="countdown-label">Tempo de Sinal Verde Calculado</div>
+          </div>
+
+          <p class="diag-body" id="traffic-status-desc">
+            Via principal com fluxo moderado e secundária fluindo bem. Sinal verde ajustado para vazão contínua.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <!-- MÓDULO 2: DETECTOR DE BURNOUT -->
+    <section class="module-view" id="view-burnout" aria-labelledby="title-burnout">
+      <header class="module-header">
+        <span class="module-tag tag-decision">Sistemas Especialistas & Decisão</span>
+        <h2 class="module-title" id="title-burnout">Detector de Sobrecarga e Risco de Burnout</h2>
+        <p class="module-desc">
+          Avalia a rotina do estudante ou desenvolvedor combinando sono, acúmulo de prazos e exposição a telas para inferir o nível subjetivo de estresse cognitivo.
+        </p>
+      </header>
+
+      <div class="module-grid">
+        <!-- Entradas do Usuário -->
+        <article class="panel-card">
+          <h3 class="panel-title">
+            <svg class="panel-title-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="20" x2="18" y2="10"/>
+              <line x1="12" y1="20" x2="12" y2="4"/>
+              <line x1="6" y1="20" x2="6" y2="14"/>
+            </svg>
+            Variáveis da Rotina (Entradas)
+          </h3>
+
+          <div class="control-group">
+            <div class="control-header">
+              <label for="burnout-sleep-input" class="control-label">Horas de Sono na Noite Anterior</label>
+              <span class="control-value-badge" id="burnout-sleep-val">6.0h</span>
+            </div>
+            <input type="range" id="burnout-sleep-input" class="slider-input" min="0" max="12" step="0.5" value="6">
+            <div class="slider-ticks">
+              <span>0h (Crítico)</span>
+              <span>7h (Ideal)</span>
+              <span>12h (Excessivo)</span>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <div class="control-header">
+              <label for="burnout-tasks-input" class="control-label">Prazos e Entregas nos Próximos Dias</label>
+              <span class="control-value-badge" id="burnout-tasks-val">4 tarefas</span>
+            </div>
+            <input type="range" id="burnout-tasks-input" class="slider-input" min="0" max="10" step="1" value="4">
+            <div class="slider-ticks">
+              <span>0 (Tranquilo)</span>
+              <span>5 (Moderado)</span>
+              <span>10 (Caótico)</span>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <div class="control-header">
+              <label for="burnout-screen-input" class="control-label">Horas de Tela / Estudo Contínuo Hoje</label>
+              <span class="control-value-badge" id="burnout-screen-val">8.0h</span>
+            </div>
+            <input type="range" id="burnout-screen-input" class="slider-input" min="0" max="14" step="0.5" value="8">
+            <div class="slider-ticks">
+              <span>0h (Leve)</span>
+              <span>7h (Normal)</span>
+              <span>14h (Extremo)</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Medidor em Arco e Diagnóstico -->
+        <article class="panel-card">
+          <h3 class="panel-title">
+            <svg class="panel-title-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+            </svg>
+            Nível de Risco Calculado (Saída)
+          </h3>
+
+          <div class="gauge-wrapper">
+            <svg class="gauge-svg" viewBox="0 0 200 120">
+              <defs>
+                <linearGradient id="gaugeGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#10b981" />
+                  <stop offset="50%" stop-color="#f59e0b" />
+                  <stop offset="100%" stop-color="#ef4444" />
+                </linearGradient>
+              </defs>
+              <path class="gauge-meter-path" d="M 20 100 A 80 80 0 0 1 180 100" />
+              <path class="gauge-progress-path" id="gauge-progress" d="M 20 100 A 80 80 0 0 1 180 100" stroke-dasharray="251.2" stroke-dashoffset="125.6" />
+            </svg>
+            <div class="gauge-readout">
+              <div class="gauge-percent" id="burnout-percent">50%</div>
+              <span class="gauge-status-badge status-med" id="burnout-badge">Moderado</span>
+            </div>
+          </div>
+
+          <div class="diag-card">
+            <h4 class="diag-title">
+              <svg class="diag-title-icon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/>
+                <path d="M9 18h6"/>
+                <path d="M10 22h4"/>
+              </svg>
+              Diagnóstico do Sistema
+            </h4>
+            <p class="diag-body" id="burnout-advice">
+              Você está em um nível moderado de esforço. As horas de tela começam a pesar sobre a noite de sono. Faça pausas ativas de 10 minutos a cada hora.
+            </p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- MÓDULO 3: COMO FUNCIONA O MOTOR FUZZY -->
+    <section class="module-view" id="view-explain" aria-labelledby="title-explain">
+      <header class="module-header">
+        <span class="module-tag tag-edu">Fundamentos Teóricos</span>
+        <h2 class="module-title" id="title-explain">Por Dentro da Inferência Nebulosa</h2>
+        <p class="module-desc">
+          Visualize a matemática acontecendo: como valores numéricos são convertidos em graus de pertinência (Fuzzificação), passam pelas regras de Mamdani e geram a decisão por Centróide.
+        </p>
+      </header>
+
+      <div class="module-grid">
+        <!-- Gráficos de Pertinência -->
+        <article class="panel-card">
+          <h3 class="panel-title">
+            <svg class="panel-title-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m3 3 7 7 4-4 7 7"/>
+              <path d="M14 6h7v7"/>
+            </svg>
+            Curvas de Pertinência em Tempo Real
+          </h3>
+          <div class="canvas-wrapper">
+            <canvas id="canvas-membership" width="500" height="220"></canvas>
+          </div>
+          <p class="metric-sub">
+            A linha vertical móvel indica o valor exato selecionado e como ele ativa simultaneamente múltiplos conjuntos fuzzy com diferentes intensidades.
+          </p>
+        </article>
+
+        <!-- Regras Ativas -->
+        <article class="panel-card">
+          <h3 class="panel-title">
+            <svg class="panel-title-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
+              <rect x="8" y="2" width="8" height="4" rx="1" ry="1"/>
+              <path d="m9 14 2 2 4-4"/>
+            </svg>
+            Inspetor de Regras de Mamdani
+          </h3>
+          <div class="rules-list" id="active-rules-container">
+            <!-- Injetado dinamicamente via JS -->
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <!-- Rodapé -->
+  <footer class="app-footer">
+    <div class="footer-content">
+      <div>
+        <strong>Fuzzy Lab</strong> — Projeto Acadêmico de Lógica Fuzzy (Semáforo Inteligente & Risco de Burnout)
+      </div>
+      <div class="footer-badge">
+        <span class="footer-icon">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+          </svg>
+        </span>
+        <span>100% Client-Side</span>
+        <span>•</span>
+        <span>Zero Dependências</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts (100% offline & zero-CORS compatible) -->
+  <script src="js/bundle.js"></script>
+</body>
+</html>

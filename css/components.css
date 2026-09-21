@@ -1,0 +1,462 @@
+/* ==========================================================================
+   Fuzzy Lab Web - Component Styles (Sliders, Gauges, Traffic Light, Cards)
+   ========================================================================== */
+
+/* Grid Layouts */
+.module-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.75rem;
+  align-items: start;
+}
+
+@media (max-width: 992px) {
+  .module-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Glass Panels / Cards */
+.panel-card {
+  background: var(--bg-surface-elevated);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-md);
+  position: relative;
+  overflow: hidden;
+}
+
+.panel-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+}
+
+.panel-title {
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin-bottom: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--text-main);
+}
+
+.panel-title-icon {
+  color: var(--color-primary);
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Control Groups & Sliders */
+.control-group {
+  margin-bottom: 1.35rem;
+}
+
+.control-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.control-label {
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.control-value-badge {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 600;
+  background: rgba(56, 189, 248, 0.15);
+  color: var(--color-primary);
+  padding: 0.15rem 0.55rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+}
+
+.slider-input {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 7px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-full);
+  outline: none;
+  transition: all var(--transition-fast);
+}
+
+.slider-input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #38bdf8;
+  cursor: pointer;
+  box-shadow: 0 0 10px var(--color-primary-glow), 0 2px 4px rgba(0, 0, 0, 0.4);
+  border: 2px solid #ffffff;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.slider-input::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+  box-shadow: 0 0 16px var(--color-primary-glow);
+}
+
+.slider-ticks {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.72rem;
+  color: var(--text-dim);
+  margin-top: 0.3rem;
+}
+
+/* ==========================================================================
+   Realistic Traffic Light Widget with Visors & Metallic Mount
+   ========================================================================== */
+.traffic-display-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1.5rem;
+}
+
+.traffic-assembly {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.traffic-housing {
+  background: linear-gradient(180deg, #18202f 0%, #0f1724 100%);
+  border: 3px solid #334155;
+  border-radius: 28px;
+  padding: 1.25rem 0.95rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+  box-shadow: 
+    0 16px 36px rgba(0, 0, 0, 0.7),
+    inset 0 1px 2px rgba(255, 255, 255, 0.15),
+    inset 0 -2px 6px rgba(0, 0, 0, 0.6);
+  width: 96px;
+  position: relative;
+  z-index: 2;
+}
+
+/* Individual Light Slot with Realistic Hood/Visor */
+.light-slot {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.light-visor {
+  position: absolute;
+  top: -8px;
+  width: 66px;
+  height: 16px;
+  border-top-left-radius: 33px;
+  border-top-right-radius: 33px;
+  background: linear-gradient(180deg, #334155 0%, #1e293b 100%);
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+  z-index: 3;
+}
+
+.traffic-light {
+  width: 62px;
+  height: 62px;
+  border-radius: 50%;
+  border: 3px solid #0b0f19;
+  position: relative;
+  transition: all var(--transition-smooth);
+  box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.8);
+  overflow: hidden;
+}
+
+/* Fresnel Lens Grid Texture */
+.traffic-light::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 35%, rgba(255, 255, 255, 0.25) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+/* Unlit Glass Lenses */
+.traffic-light.red {
+  background: radial-gradient(circle, #2d1212 25%, #180808 85%);
+  border-color: #3b1717;
+}
+
+.traffic-light.yellow {
+  background: radial-gradient(circle, #2d240d 25%, #181205 85%);
+  border-color: #3d3110;
+}
+
+.traffic-light.green {
+  background: radial-gradient(circle, #0e2a1a 25%, #06140c 85%);
+  border-color: #123d24;
+}
+
+/* Lit / Active States with Luminous Bloom */
+.traffic-light.red.active {
+  background: radial-gradient(circle at 50% 45%, #ff7171 0%, #ef4444 45%, #991b1b 100%);
+  border-color: #ff9999;
+  box-shadow: 
+    0 0 24px #ef4444, 
+    0 0 50px rgba(239, 68, 68, 0.6), 
+    inset 0 0 12px rgba(255, 255, 255, 0.8);
+}
+
+.traffic-light.yellow.active {
+  background: radial-gradient(circle at 50% 45%, #fef08a 0%, #eab308 45%, #854d0e 100%);
+  border-color: #fef08a;
+  box-shadow: 
+    0 0 24px #eab308, 
+    0 0 50px rgba(234, 179, 8, 0.6), 
+    inset 0 0 12px rgba(255, 255, 255, 0.8);
+}
+
+.traffic-light.green.active {
+  background: radial-gradient(circle at 50% 45%, #86efac 0%, #22c55e 45%, #14532d 100%);
+  border-color: #bbf7d0;
+  box-shadow: 
+    0 0 28px #22c55e, 
+    0 0 55px rgba(34, 197, 94, 0.65), 
+    inset 0 0 12px rgba(255, 255, 255, 0.8);
+}
+
+/* Mounting Pole & Base */
+.traffic-pole {
+  width: 14px;
+  height: 28px;
+  background: linear-gradient(90deg, #334155 0%, #64748b 50%, #1e293b 100%);
+  margin-top: -2px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+.traffic-base {
+  width: 46px;
+  height: 7px;
+  background: #1e293b;
+  border-radius: 4px;
+  border: 1px solid #475569;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+}
+
+/* Digital Countdown Display Box */
+.countdown-box {
+  background: rgba(15, 23, 42, 0.9);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-md);
+  padding: 1rem 1.75rem;
+  text-align: center;
+  box-shadow: inset 0 2px 8px rgba(0,0,0,0.5);
+}
+
+.countdown-val {
+  font-family: var(--font-mono);
+  font-size: 2.75rem;
+  font-weight: 800;
+  color: #38bdf8;
+  text-shadow: 0 0 20px var(--color-primary-glow);
+  line-height: 1;
+}
+
+.countdown-label {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  margin-top: 0.35rem;
+}
+
+/* Comparison Metric Box */
+.comparison-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  width: 100%;
+}
+
+.metric-pill {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 0.85rem;
+  text-align: center;
+}
+
+.metric-num {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.metric-sub {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+/* Burnout Gauge Widget */
+.gauge-wrapper {
+  position: relative;
+  width: 240px;
+  height: 140px;
+  margin: 0 auto;
+}
+
+.gauge-svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.gauge-meter-path {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.08);
+  stroke-width: 18;
+  stroke-linecap: round;
+}
+
+.gauge-progress-path {
+  fill: none;
+  stroke: url(#gaugeGradient);
+  stroke-width: 18;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.6s cubic-bezier(0.16, 1, 0.3, 1), stroke 0.4s ease;
+}
+
+.gauge-readout {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+}
+
+.gauge-percent {
+  font-family: var(--font-mono);
+  font-size: 2.5rem;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--text-main);
+}
+
+.gauge-status-badge {
+  display: inline-block;
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--radius-full);
+  margin-top: 0.4rem;
+}
+
+.status-low { background: rgba(16, 185, 129, 0.2); color: #34d399; border: 1px solid #10b981; }
+.status-med { background: rgba(245, 158, 11, 0.2); color: #fbbf24; border: 1px solid #f59e0b; }
+.status-high { background: rgba(239, 68, 68, 0.2); color: #f87171; border: 1px solid #ef4444; }
+
+/* Diagnostic Card */
+.diag-card {
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  margin-top: 1.25rem;
+}
+
+.diag-title {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.diag-title-icon {
+  color: var(--color-warning);
+}
+
+.diag-body {
+  font-size: 0.95rem;
+  color: var(--text-main);
+  line-height: 1.5;
+}
+
+/* Rules Inspector & Badges */
+.rules-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  max-height: 380px;
+  overflow-y: auto;
+  padding-right: 0.4rem;
+}
+
+.rule-item {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 0.65rem 0.9rem;
+  font-size: 0.84rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all var(--transition-fast);
+}
+
+.rule-item.active {
+  background: rgba(56, 189, 248, 0.08);
+  border-color: rgba(56, 189, 248, 0.35);
+}
+
+.rule-weight-badge {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  padding: 0.15rem 0.45rem;
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text-muted);
+}
+
+.rule-item.active .rule-weight-badge {
+  background: #38bdf8;
+  color: #020617;
+  font-weight: 700;
+}
+
+/* Canvas Wrapper */
+.canvas-wrapper {
+  background: rgba(11, 15, 25, 0.85);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  position: relative;
+  width: 100%;
+  margin-bottom: 1.25rem;
+}
+
+.canvas-wrapper canvas {
+  width: 100%;
+  height: 220px;
+  display: block;
+}

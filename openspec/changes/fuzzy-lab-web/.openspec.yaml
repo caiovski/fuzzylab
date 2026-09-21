@@ -1,0 +1,18 @@
+schema: "spec-driven"
+name: "fuzzy-lab-web"
+status: "in-progress"
+created: "2026-09-21"
+applyRequires:
+  - "proposal"
+  - "design"
+  - "tasks"
+artifacts:
+  - id: "proposal"
+    path: "proposal.md"
+    status: "done"
+  - id: "design"
+    path: "design.md"
+    status: "done"
+  - id: "tasks"
+    path: "tasks.md"
+    status: "done"
